@@ -1,0 +1,12 @@
+﻿<Application x:Class="ProductTracker.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProductTracker"
+             xmlns:viewModel="clr-namespace:ProductTracker.ViewModels"
+             Startup="ApplicationStartup">
+    
+    <Application.Resources>
+        <viewModel:ApplicationVM x:Key="ApplicationVM"/>
+    </Application.Resources>
+    
+</Application>

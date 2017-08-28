@@ -1,0 +1,97 @@
+﻿<Window x:Class="ProductTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProductTracker"
+        xmlns:viewModel="clr-namespace:ProductTracker.ViewModels"
+        xmlns:userCtrl="clr-namespace:ProductTracker.View"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="650" 
+        Width="1000"
+        ResizeMode="NoResize">
+
+    <Window.Resources>
+        <viewModel:MainVM x:Key="MainVM"/>
+        <viewModel:ProductsVM x:Key="ProductsVM"/>
+
+        <LinearGradientBrush x:Key="HappyFill" MappingMode="Absolute" StartPoint="650,10" EndPoint="800,350">
+            <GradientStop Color="AliceBlue" Offset="0.0"/>
+            <GradientStop Color="Black" Offset="1.0"/>
+        </LinearGradientBrush>
+    </Window.Resources>
+    <Border BorderThickness="5" CornerRadius="2" Padding="15" Grid.RowSpan="6" Grid.ColumnSpan="2">
+        <GroupBox Grid.RowSpan="6"
+                      Grid.ColumnSpan="2">
+            <TabControl Grid.RowSpan="6" Grid.ColumnSpan="2" 
+                        DataContext="{StaticResource ResourceKey=MainVM}" 
+                        SelectedIndex="{Binding SelectedIndex}">
+                <TabItem Header="Product Entry">
+                    <Grid DataContext="{StaticResource ResourceKey=MainVM}"
+                          Background="Ivory">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.RowSpan="2" Margin="0,-44,22,52.667">
+                            <Button Height="30" Width="30" Command="{Binding ProductsVM.AddProductCommand}">
+                                <Image Source="/Icons/add.png" VerticalAlignment="Top"/>
+                            </Button>
+                            <Button Height="30" Width="30" Command="{Binding ProductsVM.DeleteProductCommand}">
+                                <Image Source="/Icons/garbage.png" VerticalAlignment="Top"/>
+                            </Button>
+                            <Button Height="30" Width="30" Command="{Binding ProductsVM.SaveProductCommand}">
+                                <Image Source="/Icons/save.png" VerticalAlignment="Top"/>
+                            </Button>
+                        </StackPanel>
+                        <GroupBox Grid.ColumnSpan="2" 
+                                  Grid.RowSpan="6" 
+                                  Padding="15" 
+                                  BorderBrush="Black"
+                                  Header="Product Grid"
+                                  FontSize="13">
+                            
+                            <userCtrl:GridUC Grid.ColumnSpan="2"
+                                         Grid.RowSpan="6"
+                                         BorderBrush="Black"/>
+                        </GroupBox>
+
+                        <GroupBox Grid.ColumnSpan="1" 
+                                  Grid.RowSpan="6" 
+                                  Grid.Column="2" 
+                                  Padding="15" 
+                                  BorderBrush="Black"
+                                  Header="Product Entry"
+                                  FontSize="13">
+                            <userCtrl:ProductUC Grid.ColumnSpan="1"
+                                            Grid.RowSpan="6"
+                                            Grid.Column="2"
+                                            HorizontalAlignment="Stretch"
+                                            BorderBrush="Black"/>
+                        </GroupBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Portal View">
+                    <userCtrl:KeywordMappingUC/>
+                </TabItem>
+                <TabItem Header="Keyword History">
+                    <userCtrl:KeywordHistoryUC/>
+                </TabItem>
+                <TabItem Header="Product History">
+                    <userCtrl:ProductHistoryUC/>
+                </TabItem>
+            </TabControl>
+        </GroupBox>
+    </Border>
+</Window>
